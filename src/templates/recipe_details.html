@@ -1,0 +1,235 @@
+{% extends 'base.html' %} {% block content %}
+<div id="recipe-details" class="container">
+  <!-- Block turning off the screen -->
+  <input
+    type="button"
+    id="toggle"
+    value="Enable wake lock"
+    style="width: 100%; height: 5vh"
+  />
+
+  <!-- Title -->
+  <div class="row d-flex flex-column">
+    <div class="col"><h3 class="d-inline" id="recipe-title"></h3></div>
+    <div class="row">
+      <div class="col">
+        <button
+          id="recipe-title-edit"
+          class="btn btn-light btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#editModal"
+        >
+          Edit
+        </button>
+      </div>
+      <div class="col">
+        <button id="recipe-delete" class="btn btn-light btn-sm">
+          Delete recipe
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preparation -->
+  <div class="row mt-4">
+    <div class="col"><h5 class="d-inline">Preparation</h5></div>
+    <div class="row"><p id="recipe-preparation"></p></div>
+  </div>
+
+  <!-- Ingredients -->
+  <div class="row mt-3">
+    <div class="row">
+      <div class="col"><h5 class="d-inline">Ingredients</h5></div>
+      <div class="col">
+        <button
+          class="btn btn-light btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#addIngredientModal"
+        >
+          Add ingredient
+        </button>
+      </div>
+    </div>
+    <ul id="recipe-ingredients"></ul>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Edit modal -->
+  <div
+    class="modal fade"
+    id="editModal"
+    tabindex="-1"
+    aria-labelledby="editModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalTitle">Edit</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="recipe-edit-form">
+          <div class="modal-body">
+            <!-- Recipe name -->
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm"
+                >Recipe name</span
+              >
+              <input
+                id="input-name"
+                type="text"
+                class="form-control"
+                required
+              />
+            </div>
+            <!-- Preparation -->
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm"
+                >Preparation</span
+              >
+              <textarea
+                rows="15"
+                id="input-preparation"
+                type="text"
+                class="form-control"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              id="edit-modal-confirm"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Accept
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for adding new ingredient -->
+  <div
+    class="modal fade"
+    id="addIngredientModal"
+    tabindex="-1"
+    aria-labelledby="addIngredientTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addIngredientTitle">Add ingredient</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="new-ingredient-form">
+          <div class="modal-body">
+            <!-- Name -->
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm"
+                >Name</span
+              >
+              <input
+                id="input-ingredient-name"
+                type="text"
+                class="form-control"
+                required
+              />
+            </div>
+            <!-- Quantity -->
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm"
+                >Quantity</span
+              >
+              <input
+                id="input-ingredient-quantity"
+                type="number"
+                class="form-control"
+                required
+              />
+            </div>
+            <!-- Unit -->
+            <div class="input-group input-group-sm mb-3">
+              <label class="input-group-text" for="unitDropdown">Unit</label>
+              <select class="form-select" id="input-ingredient-unit">
+                <option selected value="g">g</option>
+                <option value="pcs">pieces</option>
+                <option value="ml">ml</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              id="ingredient-add-confirm"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="confirmationModal">Delete?</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button id="confirmDelete" type="button" class="btn btn-primary">
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END OF MODALS -->
+</div>
+{% endblock %} {% block javascript %}
+<script src="{{ url_for('static', filename='js/NoSleep/NoSleep.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recipe_details.js') }}"></script>
+{% endblock %}

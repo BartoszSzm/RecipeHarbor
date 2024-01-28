@@ -1,0 +1,121 @@
+{% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="container" id="main">
+  <!-- Search bar -->
+  <div id="search-bar" class="row mb-4">
+    <div class="input-group rounded">
+      <input
+        type="search"
+        class="form-control rounded"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="search-addon"
+      />
+      <span class="input-group-text border-0" id="search-addon">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="d-flex justify-content-center">
+      <button
+        id="add-new-recipe-btn"
+        type="button"
+        class="btn btn-primary w-50"
+        data-bs-toggle="modal"
+        data-bs-target="#addRecipeModal"
+      >
+        Add new recipe
+        <span>
+          <i class="fas fa-plus" style="color: #ffffff"></i>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Add new recipe modal -->
+  <!-- TODO Redundant, create a base template for modals -->
+  <div
+    class="modal fade"
+    id="addRecipeModal"
+    tabindex="-1"
+    aria-labelledby="addRecipeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addRecipeModalLabel">
+            Add new recipe
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="new-recipe-form">
+            <div class="modal-body">
+              <!-- Name -->
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm"
+                  >Name</span
+                >
+                <input
+                  id="input-new-recipe-name"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <!-- Meal type -->
+              <div class="input-group input-group-sm mb-3">
+                <label class="input-group-text" for="unitDropdown"
+                  >Meal type</label
+                >
+                <select class="form-select" id="input-new-recipe-meal-type">
+                  <option selected value="dinner">dinner</option>
+                  <option value="snack">snack</option>
+                  <option value="breakfast">breakfast</option>
+                  <option value="supper">supper</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                id="add-new-recipe-button"
+                type="button"
+                class="btn btn-primary"
+              >
+                Add
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results area -->
+  <div id="recipies-area" class="row row-cols-1 row-cols-md-2 g-4"></div>
+</div>
+{% endblock %}
+
+<!-- JS - load all recipies, add dynamic search -->
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

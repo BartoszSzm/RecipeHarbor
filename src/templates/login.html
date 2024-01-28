@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container d-flex justify-content-center">
+    <div class="d-flex justify-content-center flex-column mw-75 mt-5">
+      <img class="mb-3" src="{{ url_for('static', filename='assets/favicon.ico')}}" alt="logo">
+      <form class="text-center" method="POST" action="/login">
+          {{ form.csrf_token }}
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+           {{ form.email(class="form-control") }}
+           {{ form.email.label }}
+          </div>
+        
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+           {{ form.password(class="form-control") }}
+           {{ form.password.label }}
+          </div>
+        
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <!-- Checkbox -->
+              <div class="form-check">
+                {{ form.remember_me(class="form-check-input") }}
+                {{ form.remember_me.label }}
+              </div>
+            </div>
+        
+            <div class="col">
+              <!-- Simple link -->
+              <a href="#!">Forgot password?</a>
+            </div>
+          </div>
+        
+          <!-- Submit button -->
+          {{ form.submit(class="btn btn-primary btn-block mb-4")}}
+        
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Not a member? <a href="#!">Register</a></p>
+            <p>or sign up with:</p>
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}  
+</body>
+</html>

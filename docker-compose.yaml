@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  recipeharbor:
+    image: recipeharbor
+    build: .
+    command: gunicorn -w 10 --log-level 'debug' --bind 0.0.0.0:8000 'app:app'
+    restart: always
+    ports:
+      - "127.0.0.1:8000:8000"
+    container_name: recipeharbor
